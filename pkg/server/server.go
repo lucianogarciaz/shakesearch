@@ -25,7 +25,7 @@ func (s *Server) Serve() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fs := http.FileServer(http.Dir("./static"))
+	fs := http.FileServer(http.Dir("./frontend/build"))
 
 	http.Handle("/", fs)
 
