@@ -1,14 +1,15 @@
 package main
 
 import (
+	obs2 "github.com/lucianogarciaz/kit/obs"
 	"pulley.com/shakesearch/pkg/searcher"
-	server2 "pulley.com/shakesearch/pkg/server"
+	s "pulley.com/shakesearch/pkg/server"
 )
 
 func main() {
-	s := searcher.Searcher{}
-
-	server := server2.NewServer(s)
+	searchEng := searcher.Searcher{}
+	obs := obs2.NewObserver(obs2.NoopMetrics{}, obs2.NewBasicLogger())
+	server := s.NewServer(obs, searchEng)
 
 	server.Serve()
 }

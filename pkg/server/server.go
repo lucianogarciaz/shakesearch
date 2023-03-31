@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/lucianogarciaz/kit/obs"
 	"log"
 	"net/http"
 	"os"
@@ -11,11 +12,12 @@ import (
 )
 
 type Server struct {
+	obs      obs.Observer
 	searcher searcher.Searcher
 }
 
-func NewServer(searcher searcher.Searcher) *Server {
-	return &Server{searcher: searcher}
+func NewServer(obs obs.Observer, searcher searcher.Searcher) *Server {
+	return &Server{obs: obs, searcher: searcher}
 }
 
 func (s *Server) Serve() {
@@ -28,6 +30,8 @@ func (s *Server) Serve() {
 	http.Handle("/", fs)
 
 	http.Handle("/search", s.Search())
+
+	_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("http server Listening on port %s", port()))
 
 	log.Fatal(http.ListenAndServe(port(), nil))
 }
