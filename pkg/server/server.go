@@ -1,8 +1,6 @@
 package server
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
 	"github.com/lucianogarciaz/kit/obs"
 	"log"
@@ -21,10 +19,6 @@ func NewServer(obs obs.Observer, searcher searcher.Searcher) *Server {
 }
 
 func (s *Server) Serve() {
-	err := s.searcher.Load("completeworks.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
 	fs := http.FileServer(http.Dir("./frontend/build"))
 
 	http.Handle("/", fs)
@@ -38,24 +32,8 @@ func (s *Server) Serve() {
 
 func (s *Server) Search() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		search := s.searcher
-		query, ok := r.URL.Query()["q"]
-		if !ok || len(query[0]) < 1 {
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("missing search query in URL params"))
-			return
-		}
-		results := search.Search(query[0])
-		buf := &bytes.Buffer{}
-		enc := json.NewEncoder(buf)
-		err := enc.Encode(results)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("encoding failure"))
-			return
-		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(buf.Bytes())
+		w.WriteHeader(http.StatusOK)
 	}
 }
 
