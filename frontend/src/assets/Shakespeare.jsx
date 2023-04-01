@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Shakespeare() {
-  const size = 50;
+  const size = 30;
   const radius = size / 2;
   return (
     <svg width={size} height={size}>
