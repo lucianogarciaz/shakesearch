@@ -74,16 +74,15 @@ html, body {
     padding: 0;
     gap: 30px;
 
-    width: 45%;
+    width: 37%;
 }
 
 .main .right {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0;
-
-    width: 40%;
+    gap: 5%;
+    width: 45%;
     height: 100%;
 }
 
@@ -98,49 +97,37 @@ html, body {
     color: #000000;
 }
 
+.left h2 {
+    font-style: normal;
+    font-weight: 200;
+    font-size: 22px;
+    line-height: 26px;
+
+    color: #808080;
+
+}
+
 .text b {
     color: #33BD89;
 }
 
-.main .left .search {
+.main .right .search {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     padding: 0;
     gap: 2%;
     width: 100%;
+    height: 90px;
 }
 
-.search .filter {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding-bottom: 5%;
-    width: 100%;
-    height: 100%;
-}
-
-.filter .chip {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 5px 10px;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    height: 25px;
-    overflow-x: hidden;
-    font-size: small;
-    cursor: pointer;
-}
 
 .search textarea {
     box-sizing: border-box;
     resize: none;
-    width: 100%;
-    height: 60%;
+    width: 80%;
+    height: 100%;
 
     border: 2px solid #000000;
     border-radius: 9px;
@@ -151,23 +138,26 @@ html, body {
     line-height: 1.2;
 }
 
-.search button {
+.search .circle {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    border-radius: 9px;
+    width: 20%;
 
-    height: 150px;
-    margin-top:5%;
-    background: #000000;
+    height: 100%;
     text-transform: uppercase;
+}
+
+.circle button {
+    width: 90px;
+    height: 90px;
+    background: #000000;
+    border-radius: 50%;
+    color: #FFFFFF;
 
     font-weight: 700;
     font-size: 33px;
     line-height: 40px;
-
-    color: #FFFFFF;
 }
 
 footer {
@@ -203,7 +193,7 @@ footer img {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 380px;
 }
 
 .right .response .box {
@@ -228,4 +218,37 @@ footer img {
 
 .right .response .move-buttons {
     padding-top: 5%;
+}
+
+.box {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
