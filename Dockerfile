@@ -12,11 +12,11 @@ WORKDIR /go/src/app
 COPY ./ ./
 COPY --from=react-build /app/build ./static
 RUN go get -d -v ./...
-RUN go install -v ./...
+RUN go build -o app ./cmd/
 
 # Final image
 FROM gcr.io/distroless/base
-COPY --from=go-build /go/bin/app /
+COPY --from=go-build /go/src/app/app /
 COPY --from=react-build /app/build /static
 ENV PORT=8080
 EXPOSE 8080
