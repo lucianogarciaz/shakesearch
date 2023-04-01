@@ -61,10 +61,11 @@ func (s *Server) Search() http.HandlerFunc {
 		if err != nil {
 			_ = s.obs.Log(obs.LevelError, err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
 
-		_, _ = w.Write(b)
 		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write(b)
 		_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("request with question: %s", req.Question))
 	}
 }
