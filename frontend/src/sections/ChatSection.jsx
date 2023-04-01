@@ -4,27 +4,24 @@ import Form from './Form';
 import Shakespeare from '../assets/Shakespeare';
 
 export default function ChatSection() {
-  const initialAnswer = 'In Twelfth Night, gender roles are significant as they challenge traditional '
-        + 'societal norms. The character of Viola disguises herself as a man, Cesario, to gain '
-        + 'employment and navigate a male-dominated world. This leads to confusion and comedic situations, '
-        + 'as characters are attracted to Viola/Cesario without realizing their true identity. '
-        + 'The play also highlights the limitations and expectations placed on women, as seen through the '
-        + "character of Olivia, who is expected to mourn her brother's death and reject any suitors. "
-        + 'Overall, Twelfth Night questions the rigidity of gender roles and suggests that individuals '
-        + 'should be free to express themselves regardless of societal expectations.\n';
-  const [answer] = useState([initialAnswer]);
+  const initialAnswer = 'Greetings, good friend! Welcome to this wondrous place where thou shalt '
+      + 'converse with me, the Bard, in merry discourse. '
+      + 'Pray, dost thou seek to know of love or tragedy in my works?';
+
+  const [answer, setAnswer] = useState([initialAnswer]);
   return (
     <div className="right">
-      <Form />
+      <Form setAnswer={setAnswer} />
       <div className="response">
         <div className="box">
           <pre>
             <Shakespeare />
             {answer && (
             <TypeAnimation
+              key={answer.toString()}
               sequence={answer}
               wrapper="span"
-              speed={80}
+              speed={90}
               cursor
             />
             )}
