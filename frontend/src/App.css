@@ -252,3 +252,49 @@ footer img {
         opacity: 1;
     }
 }
+
+@media (max-width: 767px) {
+    .app .main {
+        flex-direction: column;
+    }
+
+    .main .left, .main .right {
+        width: 100%;
+        margin-bottom: 40%;
+    }
+
+    .app .header .title {
+        width: 100%;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .main .left .text, .left h2 {
+        text-align: center;
+    }
+
+    .main .right .search {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .search textarea {
+        width: 100%;
+        padding: 5% 3%;
+    }
+
+    .search .circle {
+        width: 100%;
+        height: auto;
+        margin-top: 15px;
+    }
+
+    .circle button {
+        width: 100%;
+        border-radius: 0;
+    }
+}
