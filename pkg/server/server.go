@@ -20,7 +20,9 @@ func NewServer(obs obs.Observer, searcher ask.Ask) *Server {
 }
 
 func (s *Server) Serve() {
-	fs := http.FileServer(http.Dir("./frontend/build"))
+	path := os.Getenv("FRONTEND_PATH")
+
+	fs := http.FileServer(http.Dir(path))
 
 	http.Handle("/", fs)
 
