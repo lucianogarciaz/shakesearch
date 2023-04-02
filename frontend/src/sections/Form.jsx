@@ -9,7 +9,7 @@ export default function Form({ addConversation }) {
   const [inputValue, setInputValue] = useState('');
   const [isAnswering, setIsAnswering] = useState(false);
 
-  const waitingPhrase = "...";
+  const waitingPhrase = '...';
   const errorMessage = 'Oops! Your Shakespearean request hit a snag. Please give it another go.';
 
   const handleInputChange = (e) => {
