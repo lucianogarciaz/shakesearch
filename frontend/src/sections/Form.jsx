@@ -7,10 +7,14 @@ import useForm from '../hooks/useForm';
 import useShakespeareSearch from '../hooks/useShakespeareSearch';
 
 export default function Form({ addConversation, showPills }) {
-  const { warningMessage, isAnswering, submitQuestion } = useShakespeareSearch(addConversation);
   const {
-    inputValue, handleInputChange, handleSubmit, handleKeyPress,
-  } = useForm(submitQuestion);
+    inputValue, handleInputChange, handleSubmit, handleKeyPress, setInputValue,
+  } = useForm();
+  const {
+    warningMessage,
+    isAnswering,
+    submitQuestion,
+  } = useShakespeareSearch(addConversation, setInputValue);
 
   const handlePillClick = async (pillText) => {
     await submitQuestion(pillText);
@@ -18,13 +22,18 @@ export default function Form({ addConversation, showPills }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="search">
+      <form
+        onSubmit={(e) => {
+          handleSubmit(e, handleSubmit);
+        }}
+        className="search"
+      >
         <div className="box">
           <button type="submit" aria-label="Submit question" className="mag-glass-button"><MagGlass /></button>
           <input
             value={inputValue}
             onChange={handleInputChange}
-            onKeyDown={handleKeyPress}
+            onKeyDown={(e) => { handleKeyPress(e, submitQuestion); }}
             placeholder="Chat with Shakespeare: Ask about his life, works, or characters..."
           />
         </div>

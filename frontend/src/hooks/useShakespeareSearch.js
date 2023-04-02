@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function useShakespeareSearch(addConversation) {
+export default function useShakespeareSearch(addConversation, setInputValue) {
   const [warningMessage, setWarningMessage] = useState('');
   const [isAnswering, setIsAnswering] = useState(false);
 
@@ -37,6 +37,7 @@ export default function useShakespeareSearch(addConversation) {
       const data = await response.json();
       addConversation(question, [data.response]);
       setWarningMessage('');
+      setInputValue('');
     } catch (error) {
       setTimeout(() => {
         setWarningMessage(errorMessage);
