@@ -48,7 +48,7 @@ func (c ChatGPT) Ask(ctx context.Context, question string) (string, error) {
 						" as you were shakespeare, but with modern and simple language "+
 						"and without saying that you are Shakespeare?"+
 						"The input: %s"+
-						"The maximum amount of words is 100 and the minimum 50", question),
+						"The maximum amount of words is 150 and the minimum 50", question),
 				},
 			},
 		},

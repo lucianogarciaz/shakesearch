@@ -81,6 +81,10 @@ export default function Form({ addConversation }) {
           />
         </div>
       </form>
+      <div className="pills">
+        <div className="pill">Can you tell us more about your creative process?</div>
+        <div className="pill"> Did you enjoy writing comedies more?</div>
+      </div>
       {(isAnswering || warningMessage !== '') && (
         <Answer isFirstElement conversation={{ answer: [warningMessage] }} />
       )}
