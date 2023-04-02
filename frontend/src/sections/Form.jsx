@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Answer from './Answer';
 import MagGlass from '../assets/MagGlass';
+import Pills from './Pills';
 
 export default function Form({ addConversation }) {
   const [warningMessage, setWarningMessage] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [isAnswering, setIsAnswering] = useState(false);
+
   const waitingPhrase = "Patience is a virtue! We're searching Shakespeare's world for the perfect response...";
   const errorMessage = 'Oops! Your Shakespearean request hit a snag. Please give it another go.';
 
@@ -56,10 +58,11 @@ export default function Form({ addConversation }) {
     setIsAnswering(false);
   };
 
-  // const handleClick = async (event) => {
-  //   event.preventDefault();
-  //   await handleSubmit(event);
-  // };
+  const handlePillClick = async (pillText) => {
+    setInputValue(pillText);
+    const event = new Event('submit');
+    await handleSubmit(event);
+  };
 
   const handleKeyPress = async (event) => {
     if (event.key === 'Enter') {
@@ -81,10 +84,11 @@ export default function Form({ addConversation }) {
           />
         </div>
       </form>
-      <div className="pills">
-        <div className="pill">Can you tell us more about your creative process?</div>
-        <div className="pill"> Did you enjoy writing comedies more?</div>
-      </div>
+
+      {!isAnswering && (
+      <Pills handlePillClick={handlePillClick} />
+      )}
+
       {(isAnswering || warningMessage !== '') && (
         <Answer isFirstElement conversation={{ answer: [warningMessage] }} />
       )}
