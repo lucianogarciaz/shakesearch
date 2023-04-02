@@ -9,22 +9,19 @@ export default function Form({ addConversation }) {
   const [inputValue, setInputValue] = useState('');
   const [isAnswering, setIsAnswering] = useState(false);
 
-  const waitingPhrase = "Patience is a virtue! We're searching Shakespeare's world for the perfect response...";
+  const waitingPhrase = "...";
   const errorMessage = 'Oops! Your Shakespearean request hit a snag. Please give it another go.';
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (isAnswering || inputValue === '') {
+  const submitQuestion = async (question) => {
+    if (isAnswering || question === '') {
       return;
     }
 
     setIsAnswering(true);
-
-    const question = inputValue;
 
     setWarningMessage(waitingPhrase);
 
@@ -58,16 +55,20 @@ export default function Form({ addConversation }) {
     setIsAnswering(false);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await submitQuestion(inputValue);
+  };
+
   const handlePillClick = async (pillText) => {
     setInputValue(pillText);
-    const event = new Event('submit');
-    await handleSubmit(event);
+    await submitQuestion(pillText);
   };
 
   const handleKeyPress = async (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      await handleSubmit(event);
+      await submitQuestion(inputValue);
     }
   };
 
