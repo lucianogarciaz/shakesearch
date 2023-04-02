@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 export default function Form({ setAnswer }) {
   const [inputValue, setInputValue] = useState('');
-  const waitingPhrase = 'Hold, kind friend, whilst I ruminate upon the matter at hand...';
-  const errorMessage = 'Alas, a grievous error hath occurred; prithee, '
-      + 'attempt thy query once more, and fortune may favor us';
+  const waitingPhrase = "Patience is a virtue! We're searching Shakespeare's world for the perfect response...";
+  const errorMessage = 'Oops! Your Shakespearean request hit a snag. Please give it another go.';
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
