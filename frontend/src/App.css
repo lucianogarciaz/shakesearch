@@ -101,6 +101,11 @@ html, body {
     font-style: normal;
 }
 
+.search textarea:focus {
+    outline: none;
+    background: #eef9ef;
+}
+
 .search textarea::placeholder {
     font-weight: 300;
     font-style: italic;

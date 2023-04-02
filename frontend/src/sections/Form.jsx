@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Answer from './Answer';
 
 export default function Form({ addConversation }) {
+  const [warningMessage, setWarningMessage] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [isAnswering, setIsAnswering] = useState(false);
   const waitingPhrase = "Patience is a virtue! We're searching Shakespeare's world for the perfect response...";
   const errorMessage = 'Oops! Your Shakespearean request hit a snag. Please give it another go.';
 
@@ -12,11 +15,16 @@ export default function Form({ addConversation }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isAnswering || inputValue === '') {
+      return;
+    }
+
+    setIsAnswering(true);
 
     const question = inputValue;
     setInputValue('');
 
-    addConversation(question, [waitingPhrase]);
+    setWarningMessage(waitingPhrase);
 
     const endpoint = '/search';
 
@@ -30,14 +38,21 @@ export default function Form({ addConversation }) {
       });
 
       if (!response.ok) {
-        addConversation(question, [errorMessage]);
+        setTimeout((() => {
+          setWarningMessage(errorMessage);
+        }), 1000);
+        setWarningMessage(errorMessage);
       }
 
       const data = await response.json();
       addConversation(question, [data.response]);
+      setWarningMessage('');
     } catch (error) {
-      addConversation(question, [errorMessage]);
+      setTimeout((() => {
+        setWarningMessage(errorMessage);
+      }), 1000);
     }
+    setIsAnswering(false);
   };
 
   const handleKeyPress = async (event) => {
@@ -48,15 +63,20 @@ export default function Form({ addConversation }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search">
-      <textarea
-        className="box"
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyPress}
-        placeholder="Chat with Shakespeare: Ask about his life, works, or characters..."
-      />
-    </form>
+    <>
+      <form onSubmit={handleSubmit} className="search">
+        <textarea
+          className="box"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
+          placeholder="Chat with Shakespeare: Ask about his life, works, or characters..."
+        />
+      </form>
+      {(isAnswering || warningMessage !== '') && (
+        <Answer isFirstElement conversation={{ answer: [warningMessage] }} />
+      )}
+    </>
   );
 }
 

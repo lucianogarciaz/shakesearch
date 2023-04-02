@@ -14,5 +14,7 @@ export default function Question({ conversation }) {
 }
 
 Question.propTypes = {
-  conversation: PropTypes.func.isRequired,
+  conversation: PropTypes.shape({
+    question: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
 };

@@ -25,6 +25,8 @@ export default function Answer({ conversation, isFirstElement }) {
 }
 
 Answer.propTypes = {
-  conversation: PropTypes.func.isRequired,
+  conversation: PropTypes.shape({
+    answer: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
   isFirstElement: PropTypes.bool.isRequired,
 };
