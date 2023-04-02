@@ -6,7 +6,9 @@ export default function Header() {
       <div className="header">
         <div className="title">
           Shakespeare&apos;s
-          <b className="alternative"> AMA</b>
+          <br />
+          Ask Me
+          <b className="alternative"> Anything</b>
         </div>
       </div>
     </div>

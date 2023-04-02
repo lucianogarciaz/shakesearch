@@ -40,14 +40,14 @@ html, body {
     justify-content: center;
     width: 100%;
 
-    height: 15vh;
+    height: 25vh;
     background: #FFFFFF;
 }
 
 .app .header .title {
     font-weight: 700;
-    font-size: 30px;
-    line-height: 35px;
+    font-size: 50px;
+    text-align: center;
 }
 
 .app .main {
@@ -56,7 +56,7 @@ html, body {
     justify-content: center;
 
     width: 100%;
-    height: 70vh;
+    height: 65vh;
     overflow: auto;
 }
 
@@ -71,6 +71,7 @@ html, body {
 
 .alternative {
     color: #33BD89;
+    font-style: italic;
 }
 
 .main .right .search {
@@ -229,7 +230,7 @@ footer {
     gap: 10px;
 
     width: 100%;
-    height: 15vh;
+    height: 10vh;
 }
 
 footer p {

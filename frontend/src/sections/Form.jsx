@@ -6,7 +6,7 @@ import Pills from './Pills';
 import useForm from '../hooks/useForm';
 import useShakespeareSearch from '../hooks/useShakespeareSearch';
 
-export default function Form({ addConversation }) {
+export default function Form({ addConversation, showPills }) {
   const { warningMessage, isAnswering, submitQuestion } = useShakespeareSearch(addConversation);
   const {
     inputValue, handleInputChange, handleSubmit, handleKeyPress,
@@ -30,7 +30,7 @@ export default function Form({ addConversation }) {
         </div>
       </form>
 
-      {!isAnswering && (
+      {showPills && (
       <Pills handlePillClick={handlePillClick} />
       )}
 
@@ -43,4 +43,5 @@ export default function Form({ addConversation }) {
 
 Form.propTypes = {
   addConversation: PropTypes.func.isRequired,
+  showPills: PropTypes.bool.isRequired,
 };
