@@ -104,7 +104,7 @@ html, body {
     width: 13%;
 }
 
-.search textarea {
+.search input {
     box-sizing: border-box;
     resize: none;
     width: 90%;
@@ -117,12 +117,12 @@ html, body {
     font-style: normal;
 }
 
-.search textarea:focus {
+.search input:focus {
     outline: none;
     background: #eef9ef;
 }
 
-.search textarea::placeholder {
+.search input::placeholder {
     font-weight: 300;
     font-style: italic;
 }

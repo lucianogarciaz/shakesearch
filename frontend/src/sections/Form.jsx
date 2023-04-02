@@ -21,7 +21,7 @@ export default function Form({ addConversation }) {
       <form onSubmit={handleSubmit} className="search">
         <div className="box">
           <button type="submit" aria-label="Submit question" className="mag-glass-button"><MagGlass /></button>
-          <textarea
+          <input
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
