@@ -1,33 +1,21 @@
 import React, { useState } from 'react';
-import { TypeAnimation } from 'react-type-animation';
 import Form from './Form';
-import Shakespeare from '../assets/Shakespeare';
+import Responses from './Responses';
 
 export default function ChatSection() {
-  const initialAnswer = 'Greetings, good friend! Welcome to this wondrous place where thou shalt '
-      + 'converse with me, the Bard, in merry discourse. '
-      + 'Pray, dost thou seek to know of love or tragedy in my works?';
+  const [conversations, setConversations] = useState([]);
 
-  const [answer, setAnswer] = useState([initialAnswer]);
+  const addConversation = (question, answer) => {
+    const timestamp = Date.now();
+    setConversations([{ timestamp, question, answer }, ...conversations]);
+  };
+
   return (
     <div className="right">
-      <Form setAnswer={setAnswer} />
-      <div className="response">
-        <div className="box">
-          <pre>
-            <Shakespeare />
-            {answer && (
-            <TypeAnimation
-              key={answer.toString()}
-              sequence={answer}
-              wrapper="span"
-              speed={90}
-              cursor
-            />
-            )}
-          </pre>
-        </div>
-      </div>
+      <Form addConversation={addConversation} />
+      {conversations.map((conv, index) => (
+        <Responses conversation={conv} isFirstElement={index === 0} />
+      ))}
     </div>
   );
 }

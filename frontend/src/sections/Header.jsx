@@ -5,7 +5,8 @@ export default function Header() {
     <div className="container">
       <div className="header">
         <div className="title">
-          ShakeSearch
+          Shakespeare&apos;s
+          <b className="alternative"> AMA</b>
         </div>
       </div>
     </div>

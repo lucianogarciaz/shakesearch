@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Form({ setAnswer }) {
+export default function Form({ addConversation }) {
   const [inputValue, setInputValue] = useState('');
   const waitingPhrase = "Patience is a virtue! We're searching Shakespeare's world for the perfect response...";
   const errorMessage = 'Oops! Your Shakespearean request hit a snag. Please give it another go.';
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -12,7 +13,10 @@ export default function Form({ setAnswer }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setAnswer([waitingPhrase]);
+    const question = inputValue;
+    setInputValue('');
+
+    addConversation(question, [waitingPhrase]);
 
     const endpoint = '/search';
 
@@ -22,17 +26,17 @@ export default function Form({ setAnswer }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ question: inputValue }),
+        body: JSON.stringify({ question }),
       });
 
       if (!response.ok) {
-        setAnswer([errorMessage]);
+        addConversation(question, [errorMessage]);
       }
 
       const data = await response.json();
-      setAnswer([data.response]);
+      addConversation(question, [data.response]);
     } catch (error) {
-      setAnswer([errorMessage]);
+      addConversation(question, [errorMessage]);
     }
   };
 
@@ -52,13 +56,10 @@ export default function Form({ setAnswer }) {
         onKeyDown={handleKeyPress}
         placeholder="Chat with Shakespeare: Ask about his life, works, or characters..."
       />
-      <div className="circle">
-        <button type="submit">Ask</button>
-      </div>
     </form>
   );
 }
 
 Form.propTypes = {
-  setAnswer: PropTypes.func.isRequired,
+  addConversation: PropTypes.func.isRequired,
 };
