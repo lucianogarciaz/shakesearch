@@ -22,7 +22,6 @@ export default function Form({ addConversation }) {
     setIsAnswering(true);
 
     const question = inputValue;
-    setInputValue('');
 
     setWarningMessage(waitingPhrase);
 
@@ -47,6 +46,7 @@ export default function Form({ addConversation }) {
       const data = await response.json();
       addConversation(question, [data.response]);
       setWarningMessage('');
+      setInputValue('');
     } catch (error) {
       setTimeout((() => {
         setWarningMessage(errorMessage);

@@ -45,7 +45,7 @@ func (c ChatGPT) Ask(ctx context.Context, question string) (string, error) {
 				{
 					Role: openai.ChatMessageRoleUser,
 					Content: fmt.Sprintf("As an expert on Shakespeare's works, can you answer this input"+
-						" with modern language as "+
+						" with modern and simple language as "+
 						"you were Shakespeare without saying that you are Shakespeare?"+
 						"The input: %s"+
 						"The maximum amount of words is 100 and the minimum 50", question),
