@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Answer from './Answer';
+import MagGlass from '../assets/MagGlass';
 
 export default function Form({ addConversation }) {
   const [warningMessage, setWarningMessage] = useState('');
@@ -55,6 +56,11 @@ export default function Form({ addConversation }) {
     setIsAnswering(false);
   };
 
+  // const handleClick = async (event) => {
+  //   event.preventDefault();
+  //   await handleSubmit(event);
+  // };
+
   const handleKeyPress = async (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -65,13 +71,15 @@ export default function Form({ addConversation }) {
   return (
     <>
       <form onSubmit={handleSubmit} className="search">
-        <textarea
-          className="box"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyPress}
-          placeholder="Chat with Shakespeare: Ask about his life, works, or characters..."
-        />
+        <div className="box">
+          <button type="submit" aria-label="Submit question" className="mag-glass-button"><MagGlass /></button>
+          <textarea
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
+            placeholder="Chat with Shakespeare: Ask about his life, works, or characters..."
+          />
+        </div>
       </form>
       {(isAnswering || warningMessage !== '') && (
         <Answer isFirstElement conversation={{ answer: [warningMessage] }} />
