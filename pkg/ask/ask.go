@@ -4,8 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/sashabaranov/go-openai"
 	"os"
+
+	"github.com/sashabaranov/go-openai"
 )
 
 type Ask interface {
@@ -35,18 +36,22 @@ func (c ChatGPT) Ask(ctx context.Context, question string) (string, error) {
 		return "", ErrEmptyQuestion
 	}
 
+	const temperature = 0.5
+	const p = 0.9
+
 	resp, err := c.client.CreateChatCompletion(
 		ctx,
 		openai.ChatCompletionRequest{
 			Model:       openai.GPT3Dot5Turbo,
-			Temperature: 0.5,
-			TopP:        0.9,
+			Temperature: temperature,
+			TopP:        p,
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role: openai.ChatMessageRoleUser,
-					Content: fmt.Sprintf("As an expert on Shakespeare's works, can you answer this input"+
-						" as you were shakespeare, but with modern and simple language "+
-						"and without saying that you are Shakespeare?"+
+					Content: fmt.Sprintf("As an expert on Shakespeare's works, "+
+						"can you answer this input relating it to Shakespeare?"+
+						"If the input is not a question, search for related content in Shakespeare's "+
+						"works and complete the phrase."+
 						"The input: %s"+
 						"The maximum amount of words is 150 and the minimum 50", question),
 				},
