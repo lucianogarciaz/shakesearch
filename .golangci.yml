@@ -1,0 +1,109 @@
+run:
+  deadline: 30s 
+
+linters:
+  disable-all: true
+  enable:
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - contextcheck
+    - dogsled
+    - dupl
+    - durationcheck
+    - errcheck
+    - errname
+    - errorlint
+    - exportloopref
+    - forcetypeassert
+    - gci
+    - gochecknoinits
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - godox
+    - gofmt
+    - gofumpt
+    - gomnd
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - makezero
+    - misspell
+    - nakedret
+    - nestif
+    - nilerr
+    - nlreturn
+    - noctx
+    - nolintlint
+    - prealloc
+    - predeclared
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
+    - staticcheck
+    - tenv
+    - thelper
+    - tparallel
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - wastedassign
+    - whitespace
+    - wrapcheck
+    - wsl
+
+linters-settings:
+  dupl:
+    threshold: 400
+  funlen:
+    lines: 70
+  gci:
+    sections:
+      - standard                       # Captures all standard packages if they do not match another section.
+      - default                        # Contains all imports that could not be matched to another section type.
+      - prefix(github.com/lucianogarciaz/shakesearch)
+    section-separators:
+      - newLine
+  gocyclo:
+    min-complexity: 15
+  gofmt:
+    simplify: true
+  govet:
+    enable-all: true
+    disable:
+      - fieldalignment
+      - shadow
+  lll:
+    line-length: 180
+  nlreturn:
+    block-size: 2
+  nolintlint:
+    allow-unused: false
+    require-specific: true
+  revive:
+    min-confidence: 0.80
+  wrapcheck:
+    ignoreSigs:
+      - .Errorf(
+      - errors.New(
+      - errors.Unwrap(
+      - .Wrap(
+      - .Wrapf(
+      - .WithMessage(
+      - .WithMessagef(
+      - .WithStack(
+      - Error(
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - funlen
+        - lll
+        - wrapcheck

@@ -2,16 +2,26 @@ package server
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"github.com/lucianogarciaz/kit/obs"
 	"log"
 	"net/http"
 	"os"
+	"time"
+
+	"github.com/gorilla/mux"
+	"github.com/lucianogarciaz/kit/obs"
 	"pulley.com/shakesearch/pkg/ask"
 )
 
+const (
+	timeout      = 10
+	iddleTimeout = 60
+)
+
 type Server struct {
-	obs      obs.Observer
+	obs obs.Observer
+	mux.Router
 	searcher ask.Ask
 }
 
@@ -22,15 +32,25 @@ func NewServer(obs obs.Observer, searcher ask.Ask) *Server {
 func (s *Server) Serve() {
 	path := os.Getenv("FRONTEND_PATH")
 
+	router := mux.NewRouter()
+
+	router.HandleFunc("/search", s.Search()).Methods(http.MethodPost)
+
 	fs := http.FileServer(http.Dir(path))
+	router.PathPrefix("/").Handler(fs).Methods(http.MethodGet)
+	router.Use(s.logMiddleware)
 
-	http.Handle("/", fs)
-
-	http.Handle("/search", s.Search())
+	server := &http.Server{
+		Addr:         port(),
+		Handler:      router,
+		ReadTimeout:  timeout * time.Second,
+		WriteTimeout: timeout * time.Second,
+		IdleTimeout:  iddleTimeout * time.Second,
+	}
 
 	_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("http server Listening on port %s", port()))
 
-	log.Fatal(http.ListenAndServe(port(), nil))
+	log.Fatal(server.ListenAndServe())
 }
 
 func (s *Server) Search() http.HandlerFunc {
@@ -38,29 +58,37 @@ func (s *Server) Search() http.HandlerFunc {
 		w.Header().Set("Content-Type", "application/json")
 
 		var req Search
+
 		err := json.NewDecoder(r.Body).Decode(&req)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
+
 			_ = s.obs.Log(obs.LevelInfo, err.Error())
+
 			return
 		}
 
 		response, err := s.searcher.Ask(r.Context(), req.Question)
 		if err != nil {
-			switch err {
-			case ask.ErrEmptyQuestion:
-				w.WriteHeader(http.StatusBadRequest)
-			default:
-				w.WriteHeader(http.StatusInternalServerError)
+			statusCode := http.StatusInternalServerError
+
+			if errors.Is(err, ask.ErrEmptyQuestion) {
+				statusCode = http.StatusBadRequest
 			}
+
+			w.WriteHeader(statusCode)
+
 			_ = s.obs.Log(obs.LevelError, err.Error())
+
 			return
 		}
 
 		b, err := json.Marshal(Response{Response: response})
 		if err != nil {
 			_ = s.obs.Log(obs.LevelError, err.Error())
+
 			w.WriteHeader(http.StatusInternalServerError)
+
 			return
 		}
 
@@ -68,6 +96,16 @@ func (s *Server) Search() http.HandlerFunc {
 		_, _ = w.Write(b)
 		_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("request with question: %s", req.Question))
 	}
+}
+
+func (s *Server) logMiddleware(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = s.obs.Log(
+			obs.LevelInfo,
+			fmt.Sprintf("new request with method %s to url: %s", r.Method, r.URL.String()),
+		)
+		h.ServeHTTP(w, r)
+	})
 }
 
 const address = "3001"

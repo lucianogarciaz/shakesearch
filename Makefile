@@ -7,3 +7,11 @@ docker-build:
 
 docker-run: docker-build
 	docker run -p 8081:$(PORT) -e PORT=$(PORT) -e API_KEY=$(API_KEY) -e FRONTEND_PATH=static shakesearch
+
+lint: ## Verify code standards.
+	@echo "Running linters"
+	golangci-lint run
+
+fix: ## Fix code standards.
+	@echo "Fixing linters"
+	golangci-lint run --fix
