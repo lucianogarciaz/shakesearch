@@ -13,7 +13,7 @@ export default function useShakespeareSearch(addConversation, setInputValue) {
     }
 
     setIsAnswering(true);
-
+    setInputValue(question);
     setWarningMessage(waitingPhrase);
 
     const endpoint = '/search';
