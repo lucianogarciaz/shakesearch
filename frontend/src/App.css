@@ -153,10 +153,10 @@ html, body {
         gap: 3%;
     }
     .pills {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         gap: 10%;
-        height: 140px;
+        height: 90px;
     }
 
     .pill {
