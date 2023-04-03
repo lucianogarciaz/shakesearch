@@ -5,7 +5,7 @@ export default function Pills({ handlePillClick }) {
   const firstSuggestion = "What prophecy drives Macbeth's ambition?";
   const secondSuggestion = "Who is Prospero's servant in 'The Tempest?";
   const thirdSuggestion = 'Who betrays Julius Caesar in his play?';
-  const fourthSuggestion = "Who are 'Romeo and Juliet's' feuding families?";
+  const fourthSuggestion = "Who are Romeo and Juliet's feuding families?";
 
   return (
     <>
