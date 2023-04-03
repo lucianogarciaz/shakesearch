@@ -30,6 +30,7 @@ cd shakesearch
 ```
 ### Environment Variables
 Before starting the application, you need to set the following environment variables in the .env file. You have a .env.dist example
+You can create your [APIKey in OpenAI](https://platform.openai.com/account/api-keys)
 ```sh
 PORT=your-prefered-port
 API_KEY=your-api-key
