@@ -119,9 +119,16 @@ html, body {
     font-style: normal;
 }
 
+.box:focus-within {
+    background-color: #d3f8eb;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
 .search input:focus {
     outline: none;
-    background: #eef9ef;
 }
 
 .search input::placeholder {

@@ -25,7 +25,7 @@ export default function Form({ addConversation, showPills }) {
     <>
       <form
         onSubmit={(e) => {
-          handleSubmit(e, handleSubmit);
+          handleSubmit(e, submitQuestion);
         }}
         className="search"
       >
