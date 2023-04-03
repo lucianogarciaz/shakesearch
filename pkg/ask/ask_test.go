@@ -2,9 +2,10 @@ package ask_test
 
 import (
 	"context"
+	"testing"
+
 	"github.com/stretchr/testify/require"
 	"pulley.com/shakesearch/pkg/ask"
-	"testing"
 )
 
 func TestAsk(t *testing.T) {

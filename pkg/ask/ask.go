@@ -31,13 +31,15 @@ var (
 	ErrEmptyQuestion = errors.New("empty question")
 )
 
+const (
+	temperature = 0.5
+	p           = 0.9
+)
+
 func (c ChatGPT) Ask(ctx context.Context, question string) (string, error) {
 	if question == "" {
 		return "", ErrEmptyQuestion
 	}
-
-	const temperature = 0.5
-	const p = 0.9
 
 	resp, err := c.client.CreateChatCompletion(
 		ctx,
