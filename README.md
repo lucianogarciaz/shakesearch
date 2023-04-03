@@ -11,13 +11,13 @@ Using AI, the chat app provides meaningful and engaging conversations to help us
 2. [Installation](#Installation)
 3. [Usage](#Usage)
 4. [Development](#Development)
-5. [Project Journey 🚀](#Project Journey)
+5. [Project Journey 🚀](#Journey)
 
 # Requirements
-[Go (1.18 or newer)](https://go.dev/doc/install)
-[Node.js (18.0.0 or newer)](https://nodejs.org/en/download)
-[npm (7.0.0 or newer)](https://docs.npmjs.com/getting-started)
-[Docker]()
+* [Go (1.18 or newer)](https://go.dev/doc/install)
+* [Node.js (18.0.0 or newer)](https://nodejs.org/en/download)
+* [npm (7.0.0 or newer)](https://docs.npmjs.com/getting-started)
+* [Docker](https://docs.docker.com/get-docker/)
 
 
 # Installation
@@ -65,7 +65,7 @@ cd frontend
 npm run lint:fix
 ```
 
-# Project Journey
+# Journey
 ### Design
 The design process was carried out using Figma.
 Throughout the journey, I created and iterated on various designs, eventually settling on a simple and intuitive chat interface.
