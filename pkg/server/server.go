@@ -99,11 +99,14 @@ func (s *Server) Search() http.HandlerFunc {
 		_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("request with question: %s", req.Question))
 	}
 }
+
+const maxAge = 3600
+
 func (s *Server) setCacheControlMiddleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			if strings.HasPrefix(r.URL.Path, "/static/") {
-				w.Header().Set("Cache-Control", "max-age=86400")
+				w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", maxAge))
 				_ = s.obs.Log(obs.LevelInfo, "cache set for 1 day")
 			}
 		}
