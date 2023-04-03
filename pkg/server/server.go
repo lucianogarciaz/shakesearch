@@ -110,7 +110,6 @@ func (s *Server) setCacheControlMiddleware(h http.Handler) http.Handler {
 		if r.Method == http.MethodGet {
 			if strings.HasPrefix(r.URL.Path, "/static/") {
 				w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", maxAge))
-				_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("cache set for %d seconds", maxAge))
 			}
 		}
 
@@ -120,6 +119,11 @@ func (s *Server) setCacheControlMiddleware(h http.Handler) http.Handler {
 
 func (s *Server) logMiddleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func(begin time.Time) {
+			elapsed := time.Since(begin)
+			_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("request latency, %f", elapsed.Seconds()))
+		}(time.Now())
+
 		_ = s.obs.Log(
 			obs.LevelInfo,
 			fmt.Sprintf("new request with method %s to url: %s", r.Method, r.URL.String()),
