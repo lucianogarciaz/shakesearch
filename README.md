@@ -1,11 +1,10 @@
 # ShakeSearch
 
 [ShakeSearch](https://shakesearch-af6d.onrender.com/) is a chat application where you can ask anything related to Shakespeare.
+The chat app provides meaningful and engaging conversations to help users learn and explore the world of Shakespeare.
 The project uses a React frontend and a Go backend.
-The app is a chat application where you can ask anything related to Shakespeare and his works.
-Using AI, the chat app provides meaningful and engaging conversations to help users learn and explore the world of Shakespeare.
 
-you can give it a try: https://shakesearch-af6d.onrender.com/
+you can try it: https://shakesearch-af6d.onrender.com/
 
 # Table of Contents
 
