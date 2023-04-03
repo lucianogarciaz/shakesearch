@@ -1,9 +1,11 @@
 # ShakeSearch
 
-ShakeSearch is a chat application where you can ask anything related to Shakespeare.
+[ShakeSearch](https://shakesearch-af6d.onrender.com/) is a chat application where you can ask anything related to Shakespeare.
 The project uses a React frontend and a Go backend.
 The app is a chat application where you can ask anything related to Shakespeare and his works.
 Using AI, the chat app provides meaningful and engaging conversations to help users learn and explore the world of Shakespeare.
+
+you can give it a try: https://shakesearch-af6d.onrender.com/
 
 # Table of Contents
 
@@ -106,3 +108,15 @@ A chat application that simulates a conversation with a Shakespearean expert, en
 I must say, working on ShakeSearch was fun!
 Going through the various design iterations, try to understand users, and create a seamless user experience has been both fun and rewarding.
 The opportunity to chat with a Shakespearean expert is undoubtedly an intriguing concept 😂
+
+## Future Improvements
+the following features and enhancements could be added to ShakeSearch:
+
+1. **User authentication**: Implement signup and login functionality for users.
+2. **Threaded conversation with ChatGPT**: Enhance the conversation by keeping a thread with ChatGPT, allowing for more context-aware interactions.
+3. **Store conversations**: Keep track of user conversations, allowing users to refer back to previous discussions.
+4. **Frontend tests**: Add test coverage for the React frontend components.
+6. **Acceptance backend tests**: Implement acceptance tests for the Go backend.
+7. **GitHub Actions**: Set up CI/CD pipelines for PRs and pushes to the master branch, including automated testing and deployment.
+
+These improvements would significantly expand the functionality of ShakeSearch and provide a more robust user experience.
