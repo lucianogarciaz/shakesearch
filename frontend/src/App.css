@@ -157,6 +157,9 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+    .app .header {
+        padding-bottom: 5%;
+    }
     .main .right {
         gap: 3%;
     }
