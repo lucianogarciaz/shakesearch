@@ -10,6 +10,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/lucianogarciaz/kit/obs"
 	"pulley.com/shakesearch/pkg/ask"
@@ -38,6 +39,8 @@ func (s *Server) Serve() {
 	router.HandleFunc("/search", s.Search()).Methods(http.MethodPost)
 
 	fs := http.FileServer(http.Dir(path))
+	router.PathPrefix("/").Handler(handlers.CompressHandler(fs))
+
 	router.PathPrefix("/").Handler(fs).Methods(http.MethodGet)
 	router.Use(s.logMiddleware)
 	router.Use(s.setCacheControlMiddleware)
@@ -107,7 +110,7 @@ func (s *Server) setCacheControlMiddleware(h http.Handler) http.Handler {
 		if r.Method == http.MethodGet {
 			if strings.HasPrefix(r.URL.Path, "/static/") {
 				w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", maxAge))
-				_ = s.obs.Log(obs.LevelInfo, "cache set for 1 day")
+				_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("cache set for %d seconds", maxAge))
 			}
 		}
 
