@@ -17,6 +17,7 @@ export default function Form({ addConversation, showPills }) {
   } = useShakespeareSearch(addConversation, setInputValue);
 
   const handlePillClick = async (pillText) => {
+    setInputValue(pillText);
     await submitQuestion(pillText);
   };
 
