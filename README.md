@@ -118,13 +118,14 @@ The opportunity to chat with a Shakespearean expert is undoubtedly an intriguing
 
 ## Future Improvements
 the following features and enhancements could be added to ShakeSearch:
-
-1. **User authentication**: Implement signup and login functionality for users.
+1. **Enhance the app's handling of waiting for server responses**. Instead of displaying a message, I'd like to have something more dynamic, such as a spinner
 2. **Improve Frontend**: Improve error handling for errors (currently is shown as a message in a chat) and adopt frontend best practices
-3. **Threaded conversation with ChatGPT**: Enhance the conversation by keeping a thread with ChatGPT, allowing for more context-aware interactions.
-4. **Store conversations**: Keep track of user conversations, allowing users to refer back to previous discussions.
-5. **Frontend tests**: Add test coverage for the React frontend components.
-6. **Acceptance backend tests**: Implement acceptance tests for the Go backend.
-7. **GitHub Actions**: Set up CI/CD pipelines for PRs and pushes to the master branch, including automated testing and deployment.
+3. **Store preloaded questions**. Users frequently interact with pre-loaded questions, and having them preloaded can enhance the user experience
+4. **User authentication**: Implement signup and login functionality for users.
+5. **Threaded conversation with ChatGPT**: Enhance the conversation by keeping a thread with ChatGPT, allowing for more context-aware interactions.
+6. **Store conversations**: Keep track of user conversations, allowing users to refer back to previous discussions.
+7. **Frontend tests**: Add test coverage for the React frontend components.
+8. **Acceptance backend tests**: Implement acceptance tests for the Go backend.
+9. **GitHub Actions**: Set up CI/CD pipelines for PRs and pushes to the master branch, including automated testing and deployment.
 
 These improvements would significantly expand the functionality of ShakeSearch and provide a more robust user experience.

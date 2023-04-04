@@ -18,8 +18,9 @@ import (
 )
 
 const (
-	timeout      = 10
-	iddleTimeout = 60
+	timeout     = 15
+	idleTimeout = 60
+	maxAge      = 3600
 )
 
 type Server struct {
@@ -40,9 +41,8 @@ func (s *Server) Serve() {
 	router.HandleFunc("/search", s.Search()).Methods(http.MethodGet)
 
 	fs := http.FileServer(http.Dir(path))
-	router.PathPrefix("/").Handler(handlers.CompressHandler(fs))
+	router.PathPrefix("/").Handler(handlers.CompressHandler(fs)).Methods(http.MethodGet)
 
-	router.PathPrefix("/").Handler(fs).Methods(http.MethodGet)
 	router.Use(s.logMiddleware)
 	router.Use(s.setCacheControlMiddleware)
 
@@ -51,7 +51,7 @@ func (s *Server) Serve() {
 		Handler:      router,
 		ReadTimeout:  timeout * time.Second,
 		WriteTimeout: timeout * time.Second,
-		IdleTimeout:  iddleTimeout * time.Second,
+		IdleTimeout:  idleTimeout * time.Second,
 	}
 
 	_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("http server Listening on port %s", port()))
@@ -95,8 +95,6 @@ func (s *Server) Search() http.HandlerFunc {
 	}
 }
 
-const maxAge = 3600
-
 func (s *Server) setCacheControlMiddleware(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
@@ -124,12 +122,12 @@ func (s *Server) logMiddleware(h http.Handler) http.Handler {
 	})
 }
 
-const address = "3001"
+const defaultAddress = "3001"
 
 func port() string {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = address
+		port = defaultAddress
 	}
 
 	return fmt.Sprintf(":%s", port)

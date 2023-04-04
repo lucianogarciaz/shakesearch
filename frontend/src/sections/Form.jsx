@@ -42,7 +42,7 @@ export default function Form({ addConversation }) {
       </form>
 
       {(isAnswering || warningMessage !== '') && (
-        <Answer isFirstElement conversation={{ answer: [warningMessage] }} />
+        <Answer isFirstElement isWaiting conversation={{ answer: [warningMessage] }} />
       )}
     </>
   );

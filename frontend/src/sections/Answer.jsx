@@ -2,18 +2,18 @@ import React from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import PropTypes from 'prop-types';
 
-export default function Answer({ conversation, isFirstElement }) {
+export default function Answer({ conversation, isFirstElement, isWaiting }) {
   return (
     <div className="response">
       <div className="answer-box">
         <pre>
-          {isFirstElement ? (
+          {isFirstElement || isWaiting ? (
             <TypeAnimation
               key={conversation.answer.toString()}
               sequence={conversation.answer}
               wrapper="span"
               speed={90}
-              cursor={false}
+              cursor={isWaiting}
             />
           ) : (
             conversation.answer
@@ -29,4 +29,9 @@ Answer.propTypes = {
     answer: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   isFirstElement: PropTypes.bool.isRequired,
+  isWaiting: PropTypes.bool,
+};
+
+Answer.defaultProps = {
+  isWaiting: false,
 };
