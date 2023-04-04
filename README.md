@@ -19,7 +19,7 @@ you can try it: https://shakesearch-af6d.onrender.com/
 * [Node.js (18.0.0 or newer)](https://nodejs.org/en/download)
 * [npm (7.0.0 or newer)](https://docs.npmjs.com/getting-started)
 * [Docker](https://docs.docker.com/get-docker/)
-
+* [OpenAI API Key](https://platform.openai.com/account/api-keys)
 
 # Installation
 ### Clone the repository:
@@ -28,8 +28,9 @@ git clone https://github.com/lucianogarciaz/shakesearch.git
 cd shakesearch
 ```
 ### Environment Variables
-Before starting the application, you need to set the following environment variables in the .env file. You have a .env.dist example
-You can create your [APIKey in OpenAI](https://platform.openai.com/account/api-keys)
+Before starting the application, you need to set the following environment variables in the .env file.
+You have a .env.dist example
+
 ```sh
 PORT=your-prefered-port
 API_KEY=your-api-key
@@ -104,6 +105,10 @@ Focused on the chat experience by removing unnecessary elements and creating a s
 A chat application that simulates a conversation with a Shakespearean expert, enabling users to quickly engage and learn about Shakespeare without any distractions.
 ![fifth](./design/fifth.png)
 
+And finally, since most users where using pills, I kept them fixed in the top and added a functionality to replace with
+new ones each time you select one.
+![last](./design/last.png)
+
 ## Conclusion
 I must say, working on ShakeSearch was fun!
 Going through the various design iterations, try to understand users, and create a seamless user experience has been both fun and rewarding.
@@ -113,7 +118,7 @@ The opportunity to chat with a Shakespearean expert is undoubtedly an intriguing
 the following features and enhancements could be added to ShakeSearch:
 
 1. **User authentication**: Implement signup and login functionality for users.
-2. **Improve error handling in frontend**
+2. **Improve Frontend**: Improve error handling for errors (currently is shown as a message in a chat) and adopt frontend best practices
 3. **Threaded conversation with ChatGPT**: Enhance the conversation by keeping a thread with ChatGPT, allowing for more context-aware interactions.
 4. **Store conversations**: Keep track of user conversations, allowing users to refer back to previous discussions.
 5. **Frontend tests**: Add test coverage for the React frontend components.
