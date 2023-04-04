@@ -67,7 +67,7 @@ linters-settings:
     sections:
       - standard                       # Captures all standard packages if they do not match another section.
       - default                        # Contains all imports that could not be matched to another section type.
-      - prefix(github.com/lucianogarciaz/shakesearch)
+      - prefix(pulley.com/shakesearch/pkg)
     section-separators:
       - newLine
   gocyclo:

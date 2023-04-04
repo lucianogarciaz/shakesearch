@@ -15,3 +15,15 @@ lint: ## Verify code standards.
 fix: ## Fix code standards.
 	@echo "Fixing linters"
 	golangci-lint run --fix
+
+install-moq: ## Install moq.
+	go install github.com/matryer/moq@latest
+
+mocks:
+	go mod vendor
+
+	#server
+	moq -out pkg/server/zmock_server_test.go -pkg server_test pkg/ask Ask
+	moq -out pkg/server/zmock_lib_obs_test.go -pkg server_test vendor/github.com/lucianogarciaz/kit/obs Observer
+
+	rm -rf ./vendor

@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
 	"pulley.com/shakesearch/pkg/ask"
 )
 

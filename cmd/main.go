@@ -2,6 +2,7 @@ package main
 
 import (
 	obs2 "github.com/lucianogarciaz/kit/obs"
+
 	"pulley.com/shakesearch/pkg/ask"
 	s "pulley.com/shakesearch/pkg/server"
 )
