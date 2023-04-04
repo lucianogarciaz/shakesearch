@@ -88,8 +88,10 @@ my primary focus was on creating a seamless user interaction with the product.
 ### Initial Design:
 The initial design included a filter for Shakespeare's works and a search input to look up specific parts of his work.
 ![design](./design/first.png)
+
 ### First Redesign:
-Introduced example questions for users and placed the input on the left side.
+I decided to move from a simple fuzzy search algorithm to AI because it makes the interaction more fun and engaging.
+Also, I added example questions for users and placed the input on the left side.
 This design was found to be too text-heavy and not as user-friendly as desired.
 ![second](./design/second.png)
 
