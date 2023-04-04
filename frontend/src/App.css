@@ -1,19 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: "Roboto";
 }
 
 #root {
     height: 100%;
     width: 100%;
-    font-family: "Roboto";
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 400;
-
 }
 
 .app {
@@ -104,6 +102,8 @@ html, body {
     background: none;
     border: none;
     width: 13%;
+    display: flex;
+    justify-content: center;
 }
 
 .search input {

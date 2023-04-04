@@ -37,7 +37,7 @@ func (s *Server) Serve() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/search", s.Search()).Methods(http.MethodPost)
+	router.HandleFunc("/search", s.Search()).Methods(http.MethodGet)
 
 	fs := http.FileServer(http.Dir(path))
 	router.PathPrefix("/").Handler(handlers.CompressHandler(fs))
@@ -63,18 +63,9 @@ func (s *Server) Search() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 
-		var req Search
+		question := r.URL.Query().Get("question")
 
-		err := json.NewDecoder(r.Body).Decode(&req)
-		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
-
-			_ = s.obs.Log(obs.LevelInfo, err.Error())
-
-			return
-		}
-
-		response, err := s.searcher.Ask(r.Context(), req.Question)
+		response, err := s.searcher.Ask(r.Context(), question)
 		if err != nil {
 			statusCode := http.StatusInternalServerError
 
@@ -100,7 +91,7 @@ func (s *Server) Search() http.HandlerFunc {
 
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write(b)
-		_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("request with question: %s", req.Question))
+		_ = s.obs.Log(obs.LevelInfo, fmt.Sprintf("request with question: %s", question))
 	}
 }
 
@@ -142,10 +133,6 @@ func port() string {
 	}
 
 	return fmt.Sprintf(":%s", port)
-}
-
-type Search struct {
-	Question string `json:"question"`
 }
 
 type Response struct {

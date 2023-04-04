@@ -11,6 +11,8 @@ docker-run: docker-build
 lint: ## Verify code standards.
 	@echo "Running linters"
 	golangci-lint run
+test:
+	bash -c 'set -o allexport;source .env;set +o allexport;go test ./...'
 
 fix: ## Fix code standards.
 	@echo "Fixing linters"

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/lucianogarciaz/kit/obs"
@@ -18,24 +17,6 @@ import (
 
 func TestSearch(t *testing.T) {
 	require := require.New(t)
-
-	t.Run(`Given a request with an invalid payload,
-		when it's called,
-		then it returns status 400 `, func(t *testing.T) {
-		obsMock := &ObserverMock{
-			LogFunc: func(obs.LogLevel, string, ...obs.PayloadEntry) error {
-				return nil
-			},
-		}
-		s := server.NewServer(obsMock, nil)
-		w := httptest.NewRecorder()
-		body := strings.NewReader(`{invalid-json}`)
-		r := httptest.NewRequest(http.MethodPost, "/search", body)
-		s.Search().ServeHTTP(w, r)
-		require.Equal(http.StatusBadRequest, w.Code)
-		require.Len(obsMock.LogCalls(), 1)
-		require.Equal(obs.LevelInfo, obsMock.LogCalls()[0].Level)
-	})
 
 	t.Run(`Given a request with a ask that returns an error,
 		when it's called,
@@ -54,8 +35,7 @@ func TestSearch(t *testing.T) {
 		s := server.NewServer(obsMock, askMock)
 
 		w := httptest.NewRecorder()
-		body := strings.NewReader(fmt.Sprintf(`{"question": "%s"}`, expectedQuestion))
-		r := httptest.NewRequest(http.MethodPost, "/search", body)
+		r := httptest.NewRequest(http.MethodGet, fmt.Sprintf("/search?question=%s", expectedQuestion), nil)
 		s.Search().ServeHTTP(w, r)
 
 		require.Equal(http.StatusInternalServerError, w.Code)
@@ -81,8 +61,7 @@ func TestSearch(t *testing.T) {
 		s := server.NewServer(obsMock, askMock)
 
 		w := httptest.NewRecorder()
-		body := strings.NewReader(`{"question": ""}`)
-		r := httptest.NewRequest(http.MethodPost, "/search", body)
+		r := httptest.NewRequest(http.MethodGet, "/search", nil)
 		s.Search().ServeHTTP(w, r)
 
 		require.Equal(http.StatusBadRequest, w.Code)
@@ -110,8 +89,8 @@ func TestSearch(t *testing.T) {
 		s := server.NewServer(obsMock, askMock)
 
 		w := httptest.NewRecorder()
-		body := strings.NewReader(fmt.Sprintf(`{"question": "%s"}`, expectedQuestion))
-		r := httptest.NewRequest(http.MethodPost, "/search", body)
+
+		r := httptest.NewRequest(http.MethodPost, fmt.Sprintf("/search?question=%s", expectedQuestion), nil)
 		s.Search().ServeHTTP(w, r)
 
 		require.Equal(http.StatusOK, w.Code)
