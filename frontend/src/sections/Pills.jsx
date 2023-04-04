@@ -41,7 +41,7 @@ export default function Pills({ handlePillClick }) {
     const randomQuestions = [];
     const questionsCopy = [...questions];
 
-    for (let i = 0; i < 4; i += 1) {
+    for (let i = 0; i < questions.length; i += 1) {
       const randomIndex = Math.floor(Math.random() * questionsCopy.length);
       randomQuestions.push(questionsCopy[randomIndex]);
       questionsCopy.splice(randomIndex, 1);
@@ -50,27 +50,34 @@ export default function Pills({ handlePillClick }) {
     setSuggestions(randomQuestions);
   }, []);
 
+  const handlePillsSuggestion = async (suggestion, index) => {
+    await handlePillClick(suggestion);
+    if (suggestions.length > 4) {
+      suggestions.splice(index, 1);
+    }
+  };
+
   return (
     <>
       <div className="pills">
-        {suggestions.slice(0, 2).map((suggestion) => (
+        {suggestions.slice(0, 2).map((suggestion, index) => (
           <button
             key={suggestion}
             type="button"
             className="pill"
-            onClick={() => handlePillClick(suggestion)}
+            onClick={() => handlePillsSuggestion(suggestion, index)}
           >
             {suggestion}
           </button>
         ))}
       </div>
       <div className="pills">
-        {suggestions.slice(2).map((suggestion) => (
+        {suggestions.slice(2, 4).map((suggestion, index) => (
           <button
             key={suggestion}
             type="button"
             className="pill"
-            onClick={() => handlePillClick(suggestion)}
+            onClick={() => handlePillsSuggestion(suggestion, index + 2)}
           >
             {suggestion}
           </button>

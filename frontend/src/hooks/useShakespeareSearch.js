@@ -4,7 +4,7 @@ export default function useShakespeareSearch(addConversation, setInputValue) {
   const [warningMessage, setWarningMessage] = useState('');
   const [isAnswering, setIsAnswering] = useState(false);
 
-  const waitingPhrase = '...';
+  const waitingPhrase = "Patience is a virtue! We're searching Shakespeare's world for the perfect response...";
   const errorMessage = 'Oops! Your Shakespearean request hit a snag. Please give it another go.';
 
   const submitQuestion = async (question) => {

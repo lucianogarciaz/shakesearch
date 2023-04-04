@@ -12,7 +12,7 @@ export default function ChatSection() {
 
   return (
     <div className="right">
-      <Form addConversation={addConversation} showPills={conversations.length < 3} />
+      <Form addConversation={addConversation} />
       {conversations.map((conv, index) => (
         <Responses conversation={conv} isFirstElement={index === 0} />
       ))}
