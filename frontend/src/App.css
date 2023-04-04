@@ -125,6 +125,7 @@ html, body {
 
 button:hover {
     cursor: pointer;
+    background-color: #d3f8eb;
 }
 
 .search input:focus {
