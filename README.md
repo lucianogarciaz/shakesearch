@@ -17,7 +17,7 @@ you can try it: https://shakesearch-af6d.onrender.com/
 # Requirements
 * [Go (1.18 or newer)](https://go.dev/doc/install)
 * [Node.js (18.0.0 or newer)](https://nodejs.org/en/download)
-* [npm (7.0.0 or newer)](https://docs.npmjs.com/getting-started)
+* [npm (9.0.0 or newer)](https://docs.npmjs.com/getting-started)
 * [Docker](https://docs.docker.com/get-docker/)
 * [OpenAI API Key](https://platform.openai.com/account/api-keys)
 
